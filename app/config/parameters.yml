@@ -1,0 +1,17 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 172.16.3.6
+    database_port: 3306
+    database_name: edusoho_com
+    database_user: longping
+    database_password: longping130
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: zh_CN
+    secret: pczl33725v4ooogoo4w4cws4csk4s4w
+    user_partner: none
+    loginurl: 'http://passport.lpmas.org/user/UserAccountLogin.do'
+    registerurl: 'http://passport.lpmas.org/user/UserAccountRegister.do'
