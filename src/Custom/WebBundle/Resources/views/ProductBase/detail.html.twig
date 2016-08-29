@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>实训基地</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="实训基地"/>
+    <meta name="description" content="实训基地"/>
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global-v2.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/course.css') }}"/>
+</head>
+<body>
+<div class="g-wrap g-pb0">
+    {#<div class="g-h2 f-tac"><a href="javascript:;" class="back-a"><i class="back-point"></i></a>班级详情</div>#}
+    {#<div class="placeHolder"></div>#}
+    <div class="class-detail" style="background: #5dab2f">
+        <div class="courseDetail">
+            <a href="javascript:;" class="courseList1">
+                {% if image.id|default(0) %}
+                    <img src="{{ path('classroom_attachment_download',{fileId:image.id}) }}" width="100" height="80">
+                {% else %}
+                    <img src="{{ asset('themes/h5/images/update/courselistImg.png') }}" width="100" height="80">
+                {% endif %}
+                <div class="list-right">
+                    <p class="s-course-name overline2">{{ productBase.title }}</p>
+                    {#<p class="s-course-progress">#}
+                    {#<span>123人</span>#}
+                    {#<span class="g-fr">45课时</span></p>#}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div>
+        <div class="left-h2">基地简介</div>
+        <section class="bg-df9 g-mb10">
+            <article class="g-font-color course-detailContent maxh">
+                {{ productBase.about }}
+            </article>
+            <p class="read-more">更多内容</p>
+        </section>
+        <div class="g-font-color5 bg-df9 g-mb10  overline1 base-adddress">
+            {{ productBase.address }}
+            <span class="g-font-color3 add-icon"></span>
+            {{ render(controller('CustomWebBundle:ProductBase:distance',{productBase:productBase})) }}
+        </div>
+
+        {{ render(controller('CustomWebBundle:ProductBase:courses',{id:productBase.id})) }}
+    </div>
+</div>
+<script src="{{ asset('themes/h5/js/src/vendor/require.js') }}"></script>
+<script src="{{ asset('themes/h5/js/src/main.js') }}"></script>
+<script>
+    require.config({baseUrl: ["/themes/h5/js/src/"].join('')});
+    require(['zepto'], function () {
+        vailHeight();
+        function vailHeight() {
+            $('.course-detailContent').removeClass('maxh');
+            var detailHeight = $('.course-detailContent').height();
+            if (detailHeight <= 120) {
+                $('.read-more').css('display', 'none');
+            } else {
+                $('.course-detailContent').addClass('detailDes-overpb detailDes-overh');
+                $('.read-more').html('更多内容');
+            }
+        }
+
+        $('.read-more').on('click', function () {
+            if ($(this).html() == '更多内容') {
+                $('.course-detailContent').removeClass('detailDes-overh');
+                $(this).html('没有更多内容');
+            }
+            else {
+                $('.course-detailContent').addClass('detailDes-overh');
+                $(this).html('更多内容');
+            }
+        })
+
+        $('#live').on('click', function () {
+            window.location.href = "lpmas://yunketang/longping020";
+        })
+
+    })
+
+
+</script>
+
+{% include "CustomWebBundle::tongji.html.twig"  %}
+</body>
+</html>

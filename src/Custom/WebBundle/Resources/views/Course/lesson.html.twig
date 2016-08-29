@@ -1,0 +1,47 @@
+
+
+<div class="swiper-slide">
+    {% set index=1 %}
+    {% for lesson in lessons %}
+        {% if lesson.type|default('')=='chapter' %}
+            <div class="g-h3 head-line g-mt10">
+                <span>{{ lesson.title }}</span>
+            </div>
+            <div class="course-item">
+                <ul class="g-list">
+                    {% set num=1 %}
+                    {% for tmplesson in lessons %}
+                        {% if tmplesson.chapterId|default('')==lesson.id and tmplesson.type|default('')=='video' and tmplesson.status|default('')=='published' %}
+                            <li>
+                                <span class="list-num">{{ num }}</span>
+
+                                <div class="list-div">
+                                    <span class="list-title"><img src="{{ asset('themes/h5/images/ui-play.png') }}"
+                                                                  class="ui-play">{{ tmplesson.title }}</span>
+                                    <span class="list-time">{{ tmplesson.lengthTime|duration }}</span>
+                                </div>
+                            </li>
+                            {% set num=num+1 %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% elseif lesson.type=='video'and lesson.chapterId=='0' %}
+            <div class="course-item">
+                <ul class="g-list">
+                    <li>
+                        <span class="list-num">{{ index }}</span>
+
+                        <div class="list-div">
+                            <span class="list-title"><img src="{{ asset('themes/h5/images/ui-play.png') }}"
+                                                          class="ui-play">{{ lesson.title }}</span>
+                            <span class="list-time">{{ lesson.length|duration }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {% set index=index+1 %}
+        {% endif %}
+    {% endfor %}
+
+</div>

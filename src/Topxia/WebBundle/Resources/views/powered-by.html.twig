@@ -1,0 +1,9 @@
+{% if setting('copyright.owned') %}
+  {% if setting('copyright.name') %}
+    Powered by <a href="{{ path('homepage') }}" target="_blank">{{ setting('copyright.name') }}</a>
+  {% endif %}
+{% else %}
+  Powered by <a href="http://www.lpmas.com/" target="_blank"> 隆平现代农业科技服务有限公司</a>
+  ©2015-2016
+  {#<a class="mlm" href="http://www.howzhi.com/" target="_blank">好知网</a>#}
+{% endif %}

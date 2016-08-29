@@ -1,0 +1,84 @@
+{% extends 'TopxiaAdminBundle:ProductBase:layout.html.twig' %}
+
+{% block title %}基本信息 - {{ parent() }}{% endblock %}
+
+{% set side_nav = 'base' %}
+{% block main %}
+
+    <div class="panel panel-default panel-col">
+        <div class="panel-heading">{% if productBase.id|default('') %}编辑{% else %}新增{% endif %}基地基本信息</div>
+        <div class="panel-body">
+            <form class="form-horizontal" id="course-form" method="post"
+                  action="{% if productBase.id|default('') %}{{ path('admin_product_update', {id:productBase.id}) }}{% else %}{{ path('admin_product_create') }}{% endif %}"
+                  method="post">
+
+                {{ web_macro.flash_messages() }}
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">标题</label>
+
+                    <div class="col-md-8 controls">
+                        <input type="text" id="product_course_title" name="title" required="required"
+                               class="form-control" value="{{ productBase.title|default('') }}">
+
+                        <div class="help-block" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2 control-label"><label>基地简介</label></div>
+                    <div class="col-md-8 controls">
+                    <textarea name="about" rows="10" id="product_course-about-field"
+                              class="form-control">{{ field_value(productBase, 'about') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">基地地址</label>
+
+                    <div class="col-md-8 controls">
+                        <input type="text" id="product_course_address" name="address" required="required"
+                               class="form-control" value="{{ productBase.address|default('') }}">
+
+                        <div class="help-block" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">百度经度</label>
+
+                    <div class="col-md-8 controls">
+                        <input type="text" id="product_course_baiduLon" name="baiduLon" required="required"
+                               class="form-control" value="{{ productBase.baiduLon|default('') }}">
+
+                        <div class="help-block" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">百度纬度</label>
+
+                    <div class="col-md-8 controls">
+                        <input type="text" id="product_course_baiduLon" name="baiduLon" required="required"
+                               class="form-control" value="{{ productBase.baiduLon|default('') }}">
+
+                        <div class="help-block" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8 controls">
+                        <button class="btn btn-fat btn-primary" type="submit">保存</button>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+            </form>
+        </div>
+    </div>
+<script type="text/javascript">app.load('tag/save-modal')</script>
+{% endblock %}
+
+
+

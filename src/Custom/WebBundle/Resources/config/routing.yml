@@ -1,0 +1,112 @@
+category:
+    pattern: /category
+    defaults: { _controller: CustomWebBundle:Course:category }
+
+course_list:
+    pattern: /courses/list
+    defaults: { _controller: CustomWebBundle:Course:lists }
+
+course_detail:
+    pattern: /courses/detail/{id}
+    defaults: { _controller: CustomWebBundle:CourseDetail:detail }
+
+calssroom_list:
+    pattern: /calssroom/mylist
+    defaults: { _controller: CustomWebBundle:ClassRoom:lists }
+
+classroom_list:
+    pattern: /myclassroom/mylist
+    defaults: { _controller: CustomWebBundle:ClassRoom:lists2 }
+
+my_calssroom_list:
+    pattern: /mycalssroom/list
+    defaults: { _controller: CustomWebBundle:ClassRoom:myLists }
+
+my_classroom_list:
+    pattern: /myclassroom/list
+    defaults: { _controller: CustomWebBundle:ClassRoom:myLists2 }
+
+expert_detail:
+    pattern: /expert/{id}
+    defaults: { _controller: CustomWebBundle:User:show }
+
+expert_teaching:
+    pattern: /expert/teaching/{id}
+    defaults: { _controller: CustomWebBundle:User:teaching }
+
+classroom_detail:
+    pattern: /lpclassroom/{id}
+    defaults: { _controller: CustomWebBundle:ClassRoom:introduction }
+
+classroom_attachment_download:
+    pattern: /download/{fileId}
+    defaults: { _controller: CustomWebBundle:ClassRoom:download }
+
+all_product_base:
+    pattern: /all/productbase/{courseId}
+    defaults: { _controller: CustomWebBundle:ProductBase:productBase }
+
+product_base_detail:
+    pattern: /productbase/{id}
+    defaults: { _controller: CustomWebBundle:ProductBase:index }
+
+product_base_course:
+    pattern: /productbase/courses/{id}
+    defaults: { _controller: CustomWebBundle:ProductBase:courses }
+
+classroom_offline_schedule:
+    pattern: /classroom/offlineSchedule/{id}
+    defaults: { _controller: CustomWebBundle:ClassRoom:offlineSchedule }
+
+lplogout:
+    pattern: /lp/logout
+    defaults: { _controller: CustomWebBundle:lpLogout:index }
+
+course_member:
+    pattern: /course/{courseId}/member/{type}
+    defaults: { _controller: CustomWebBundle:CourseDetail:students }
+
+classroom_member:
+    pattern: /classroom/{classroomId}/member/{type}
+    defaults: { _controller: CustomWebBundle:ClassRoom:latestMembersBlock }
+
+course_comment:
+    pattern:  /courses/{courseId}/comment
+    defaults: { _controller: CustomWebBundle:Comment:list }
+
+lp_classroom_courses:
+    pattern:  /lpclassroom/{classroomId}/courses
+    defaults: { _controller: CustomWebBundle:ClassRoom:courses }
+
+user_learning_courses:
+    pattern: /member/learning
+    defaults: { _controller: CustomWebBundle:User:learning}
+
+course_comment_create:
+    pattern:  /courses/{courseId}/comment/create
+    defaults: { _controller: CustomWebBundle:Comment:create }
+
+user_collection_courses:
+    pattern:  /member/collection
+    defaults: { _controller: CustomWebBundle:User:collection }
+
+calssroom_live_list:
+    pattern: /calssroom/livelist
+    defaults: { _controller: CustomWebBundle:ClassRoom:livelists }
+announcement_list:
+    pattern: /classroom/{classroomId}/announcement
+    defaults: { _controller: CustomWebBundle:Announcement:list }
+announcement_detail:
+    pattern: /classroom/{classroomId}/announcement/{announcementId}
+    defaults: { _controller: CustomWebBundle:Announcement:detail }
+
+lpmas_live_course_manage_lesson_create:
+    pattern:  /course/{id}/manage/lpmas_live/lesson/create
+    defaults: { _controller: CustomWebBundle:LiveCourseLessonManage:create }
+
+lpmas_live_course_manage_lesson_edit:
+    pattern:  /course/{courseId}/manage/lpmas_live/lesson/{lessonId}/edit
+    defaults: { _controller: CustomWebBundle:LiveCourseLessonManage:edit }
+lpmas_live_status_check:
+    pattern:  /course/{courseId}/lpmas_live/lesson/{lessonId}
+    defaults: { _controller: CustomWebBundle:LiveCourseLessonManage:liveStatus }

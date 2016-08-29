@@ -1,0 +1,11 @@
+{% extends 'TopxiaAdminBundle::layout.html.twig' %}
+
+{% set menu = 'admin_user_manage' %}
+
+{% set script_controller = 'user/list' %}
+
+{% block page_content %}
+
+    {#{{ render(controller('TopxiaWebBundle:Importer:ValidateExcelInfo',{request:app.request, target:{type:'admin', id:19}})) }}#}
+    {{ render(controller('TopxiaAdminBundle:UserImporter:ValidateExcelInfo',{request:app.request, target:{type:'admin', id:19}})) }}
+{% endblock %}

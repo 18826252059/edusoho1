@@ -1,0 +1,16 @@
+<div class="left-h2">热门培育班</div>
+<section class="bg-df9 g-mb10 last-bor">
+    {% for classroom in classrooms %}
+    <div class="courseDetail">
+        <a href="{{ path('classroom_detail',{id:classroom.id}) }}" class="courseList1">
+            <img src="{{ filepath(classroom.middlePicture, 'classroom.png') }}" width="100" height="80">
+            <div class="list-right">
+                <p class="s-course-name overline2">{{ classroom.title }}</p>
+                <p class="s-course-progress">
+                    <span>{{ classroom.courseNum|default('0')}}个课程</span>
+                    <span class="g-fr">共{{ classroom.studentNum+classroom.auditorNum }}人</span></p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</section>

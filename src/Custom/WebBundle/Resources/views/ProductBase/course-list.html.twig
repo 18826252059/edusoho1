@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>课程列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="课程列表"/>
+    <meta name="description" content="课程列表"/>
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global-v2.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/swiper/swiper.min.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/course.css') }}"/>
+</head>
+<body>
+<div class="g-wrap g-pb0">
+    <div class="swiper-container course-swiper">
+        <div class="swiper-wrapper course-contain">
+            <div class="swiper-slide firt-swiper">
+                {% for course in courses %}
+                    <div class="courseDetail">
+                        <a href="{{ path('course_detail',{id:course.id}) }}" class="courseList1">
+                            <img src="{{ filepath(course.middlePicture, 'course.png') }}" width="100" height="80">
+
+                            <div class="list-right">
+                                <p class="s-course-name overline2">{{ course.title }}</p>
+
+                                <p class="s-course-progress">
+                                    <span>{{ course.lessonNum }}课时</span>
+                                    <span class="g-fr">共{{ course.studentNum }}人</span></p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% include "CustomWebBundle::tongji.html.twig"  %}
+</body>
+</html>

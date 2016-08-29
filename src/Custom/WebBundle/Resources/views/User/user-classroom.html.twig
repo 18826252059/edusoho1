@@ -1,0 +1,18 @@
+{% if classrooms|default('') %}
+<a href="{{ path('calssroom_list') }}"><div class="left-h2 last-bor">授课班级<span class="course-rightPoint g-fr">更多班级</span></div></a>
+<section class="bg-df9 g-mb10">
+    {% for classroom in classrooms %}
+    <div class="courseDetail">
+        <a href="{{ path('classroom_detail',{id:classroom.id}) }}" class="courseList1" data-id="{{ classroom.id }}">
+            <img src="{{  filepath(classroom.smallPicture, 'classroom.png') }}" width="100" height="80">
+            <div class="list-right">
+                <p class="s-course-name overline2">{{ classroom.title }}</p>
+                <p class="s-course-progress">
+                    <span>{{ classroom.lessonNum }}课时</span>
+                    <span class="g-fr">共{{ classroom.studentNum }}人</span></p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}

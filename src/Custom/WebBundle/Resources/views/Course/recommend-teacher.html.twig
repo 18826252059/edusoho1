@@ -1,0 +1,17 @@
+{% if users %}
+    <div class="left-h2">课程专家</div>
+    <section class="clearfix g-mb10 course-experts">
+        {% for user in users %}
+            <div class="course-expertsDetail">
+                <a href="{{ path('expert_detail',{id:user.id}) }}">
+                    <img src="{{ filepath(user.mediumAvatar, 'avatar.png') }}" width="50" height="50">
+
+                    <p class="overline1 g-font-color">{{ user.nickname }}</p>
+
+                    <p class="overline1 g-font-color2">{{ user.title }}</p>
+                </a>
+            </div>
+        {% endfor %}
+
+    </section>
+{% endif %}

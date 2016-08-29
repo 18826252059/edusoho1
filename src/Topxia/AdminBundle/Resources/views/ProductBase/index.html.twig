@@ -1,0 +1,29 @@
+{% extends 'TopxiaAdminBundle::layout.html.twig' %}
+
+{% set menu = 'admin_base' %}
+{% set script_controller = 'product/base' %}
+{% block main %}
+
+<table id="tag-table" class="table table-striped">
+    <thead>
+        <th width="10%">ID</th>
+        <th width="50%">名称</th>
+        <th width="20%">添加时间</th>
+        <th width="20%">操作</th>
+    </thead>
+    <tbody>
+      {% if productBases %}
+        {% for productBase in productBases %}
+          {% include 'TopxiaAdminBundle:ProductBase:list-tr.html.twig' %}
+        {% endfor %}
+      {% else %}
+       <tr><td colspan="20"><div class="empty">暂无基地记录</div></td></tr>
+      {% endif %}
+
+    </tbody>
+</table>
+
+{{ web_macro.paginator(paginator) }}
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'TopxiaWebBundle:CourseManage:layout.html.twig' %}
+
+{% block title %}基地管理 - {{ parent() }}{% endblock %}
+{% set script_controller = 'product-base/pick' %}
+{% set side_nav = 'productBase' %}
+
+{% block main %}
+
+    <style>
+
+        .sort{
+            padding-top: 50px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .price{
+            color: #e57259;
+            font-size: 16px;
+        }
+
+    </style>
+
+    {#{% set url = path('classroom_courses_select',{id:classroom.id}) %}#}
+    <div class="panel panel-default panel-col">
+        <div class="panel-heading">课程相关基地管理
+            <button class="btn btn-success btn-sm panel-bar" data-toggle="modal" data-target="#modal" data-url="{{path('course_manage_product_base_pick',{courseId:course.id})}}">添加基地</button></div>
+        <div class="panel-body">
+
+            <form id="courses-form" class="form-horizontal" method="post">
+                {{ web_macro.flash_messages() }}
+
+                <div class="form-group" id="courses-form-group">
+                    <div class="col-md-12 controls">
+                        <ul class="product-base-list-group sortable-list course-wide-list " id="product-base-list-group" data-role="list" >
+
+                            {% for productBases in productBases %}
+                                <li class="list-group-item clearfix" data-role="item" id="product-base-{{ productBases.id }}">
+                                    {#<span class="glyphicon glyphicon-resize-vertical sort-handle"></span>#}
+                                    <span class="nickname"><a href="{{ path('admin_product_update', {id:productBases.id})  }}" target="_blank">{{ productBases.title }}</a></span>
+                                    <button class="close delete-btn pull-right mrl mts mll" data-role="item-delete" type="button" title="删除" style="font-size:35px;" data-id="{{productBases.id}}"
+                                            data-url="{{path('course_manage_product_base_delete',{id:course.id}) }}">× </button>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

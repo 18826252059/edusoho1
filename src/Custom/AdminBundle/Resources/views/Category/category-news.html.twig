@@ -1,0 +1,84 @@
+{% extends 'CustomAdminBundle:Category:layout.html.twig' %}
+{% block title %}管理 - {{ parent() }}{% endblock %}
+{% set script_controller = 'customadminbundle/controller/category-manager/pick' %}
+{% set side_nav = type %}
+
+{% block main %}
+
+    <style>
+
+        .sort {
+            padding-top: 50px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .price {
+            color: #e57259;
+            font-size: 16px;
+        }
+
+    </style>
+
+    <div class="panel panel-default panel-col">
+        <div class="panel-heading">相关管理
+            <button class="btn btn-success btn-sm panel-bar" data-toggle="modal" data-target="#modal"
+                    data-url="{% if type=='news' %}{{ path('news_category_list',{id:category.id,type:type}) }}{% elseif type=='nongzi' %}{{ path('nongzi_category_select',{id:category.id,type:type}) }}{% elseif type=='jiaocheng' %}{{ path('nongzi_category_select',{id:category.id,type:type}) }}{% endif %}">
+                关联
+            </button>
+        </div>
+        <div class="panel-body">
+
+            <form id="courses-form" class="form-horizontal" method="post">
+                {{ web_macro.flash_messages() }}
+
+                <div class="form-group" id="courses-form-group">
+                    <div class="col-md-12 controls">
+                        <ul class="product-base-list-group sortable-list course-wide-list " id="product-base-list-group"
+                            data-role="list">
+                            <table id="tag-table" class="table table-striped">
+                                <thead>
+                                <th width="20%">分类ID</th>
+                                <th width="20%">分类栏目路径</th>
+                                <th width="30%">分类名称</th>
+                                <th width="20%">创建时间</th>
+                                <th width="10%">操作</th>
+                                </thead>
+                                <tbody>
+                                {% if newsCategory %}
+                                    {% for c in newsCategory %}
+                                        <tr id="category-tr-{{ c.id }}">
+                                        <td>{{ c.toId }}</td>
+                                        <td>{{ c.toPath }}</td>
+                                        <td>{{ c.toName }}</td>
+                                        <td>{{ c.createTime }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-sm delete" href="javascript:;"
+                                                   data-url="{{ path('news_category_delete',{id:c.id}) }}" data-id="{{ c.id }}">删除</a>
+                                            </div>
+                                        </td>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="20">
+                                            <div class="empty">
+                                                暂无相关</div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

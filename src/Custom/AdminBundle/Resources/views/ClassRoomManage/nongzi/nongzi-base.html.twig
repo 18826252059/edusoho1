@@ -1,0 +1,90 @@
+{% extends 'ClassroomBundle:ClassroomManage:layout.html.twig' %}
+
+{% block title %}{% if type=="nongzi" %}农资{% else %}教程{% endif %}管理 - {{ parent() }}{% endblock %}
+{% set script_controller = 'product/pick' %}
+{% set side_nav = type %}
+
+{% block main %}
+
+    <style>
+
+        .sort {
+            padding-top: 50px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .price {
+            color: #e57259;
+            font-size: 16px;
+        }
+
+    </style>
+
+    {#{% set url = path('classroom_courses_select',{id:classroom.id}) %}#}
+    <div class="panel panel-default panel-col">
+        <div class="panel-heading">相关{% if type=="nongzi" %}农资{% else %}教程{% endif %}管理
+            <button class="btn btn-success btn-sm panel-bar" data-toggle="modal" data-target="#modal"
+                    data-url="{{ path('classroom_nongzi_list',{classroomId:classroom.id,type:type}) }}">
+                关联{% if type=="nongzi" %}农资{% else %}教程{% endif %}
+            </button>
+        </div>
+        <div class="panel-body">
+
+            <form id="courses-form" class="form-horizontal" method="post">
+                {{ web_macro.flash_messages() }}
+
+                <div class="form-group" id="courses-form-group">
+                    <div class="col-md-12 controls">
+                        <ul class="product-base-list-group sortable-list course-wide-list " id="product-base-list-group"
+                            data-role="list">
+                            <table id="tag-table" class="table table-striped">
+                                <thead>
+                                <th width="10%">商品ID</th>
+                                <th width="25%">商品图片</th>
+                                <th width="25%">商品标题</th>
+                                <th width="25%">商品价格</th>
+                                <th width="10%">添加时间</th>
+                                <th width="20%">操作</th>
+                                </thead>
+                                <tbody>
+                                {% if nongzi %}
+                                    {% for p in nongzi %}
+                                        {% set classroomProduct=classroomProducts[p.productId] %}
+                                        <tr id="course-news-{{ classroomProduct.id }}">
+                                        <td>{{ p.productId }}</td>
+                                        <td><img src="{{ p.img }}" width="45px" height="45px"/></td>
+                                        <td>{{ p.productTitle }}</td>
+                                        <td>{% if p.currency=='CNY' %}￥{% endif %}{{ p.offerPrice }}</td>
+                                        <td>{{ classroomProduct.createTime }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-sm delete" href="javascript:;"
+                                                   data-id="{{ classroomProduct.id }}"
+                                                   data-url="{{ path('classroom_nongzi_delete',{classroomId:classroom.id}) }} ">删除</a>
+                                            </div>
+                                        </td>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="20">
+                                            <div class="empty">
+                                                暂无相关{% if type=="nongzi" %}农资{% else %}教程{% endif %}</div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

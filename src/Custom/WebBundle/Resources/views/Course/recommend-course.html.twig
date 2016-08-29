@@ -1,0 +1,16 @@
+<div class="left-h2">推荐课程<a calss="right-a" href="{{ path('course_list') }}" ><span class="course-rightPoint g-fr">更多课程</span></a></div>
+<section class="bg-df9 g-mb10 last-bor">
+    {% for course in courses %}
+    <div class="courseDetail">
+        <a href="{{ path('course_detail',{id:course.id}) }}" class="courseList1">
+            <img src="{{ course.middlePicture }}" width="100" height="80">
+            <div class="list-right">
+                <p class="s-course-name overline2">{{ course.title }}</p>
+                <p class="s-course-progress">
+                    <span>{{ course.lessonNum }}课时</span>
+                    <span class="g-fr">共{{ course.studentNum }}人</span></p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</section>

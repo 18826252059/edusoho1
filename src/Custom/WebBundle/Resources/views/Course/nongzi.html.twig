@@ -1,0 +1,21 @@
+
+{% if nongzi.farmInputs|default('')  %}<a href="{{ nongzi.url }}"><div class="left-h2">相关农资<span class="course-rightPoint g-fr">更多农资</span></div></a>
+<section class="bg-df9 g-mb10 nongzi-box">
+    <div class="swiper-container containerNew">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="white-space: nowrap;">
+                    {% for product in  nongzi.farmInputs %}
+                        <a href="{{ product.url }}">
+                            <div class="nongzi-detail">
+                                <img src="{{ product.thumbUrl }}" width="115" height="115">
+
+                                <p class="overline1 dec">{{ product.productTitle }}</p>
+                                {#<p class="g-font-color4">￥59</p>#}
+                            </div>
+                        </a>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

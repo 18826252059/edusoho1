@@ -1,0 +1,52 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+
+{% block title %}分类管理 - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <style>
+        .locked li a {
+            padding: 10px 15px 10px 0px !important;
+        }
+
+        .locked li a > span {
+            display: inline-block;
+            width: 35px;
+            padding: 0px 10px;
+        }
+    </style>
+    <div class="es-section course-manage-header clearfix">
+        <h1 class="title">{{ category.name }}
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            {% block side %}
+                {% set side_nav = side_nav|default(null) %}
+                <div class="sidenav locked">
+                    <ul class="list-group">
+                        <li class="list-group-heading">相关信息</li>
+                        <li class="list-group-item {% if side_nav == 'news' %}active{% endif %}">
+                            <a href="{{ path('category_manage', {id:category.id,type:"news"}) }}">
+                                相关资讯类别
+                            </a>
+                        </li>
+                        <li class="list-group-item {% if side_nav == 'nongzi' %}active{% endif %}">
+                            <a href="{{ path('category_manage', {id:category.id,type:"nongzi"}) }}">
+                                相关农资类别
+                            </a>
+                        </li>
+                        <li class="list-group-item {% if side_nav == 'jiaocheng' %}active{% endif %}">
+                            <a href="{{ path('category_manage', {id:category.id,type:"jiaocheng"}) }}">
+                                相关教程类别
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {% endblock %}
+        </div>
+        <div class="col-md-9">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

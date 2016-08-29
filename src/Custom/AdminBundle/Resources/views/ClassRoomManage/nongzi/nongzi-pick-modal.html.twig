@@ -1,0 +1,77 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modal_class= "modal-lg" %}
+
+{% block title %}选择{% if type=="nongzi" %}农资{% else %}教程{% endif %}{% endblock %}
+{% block body %}
+    <style>
+        .course-item:hover {
+            cursor: pointer;
+        }
+
+        .course-wide-list .course-item .select {
+
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <ul class="nav nav-tabs">
+                    <li class="{% if top %}active{% endif%}">
+                        <a class="catalog-tab" href="javascript:void(0);" data-url="{{ path('classroom_nongzi_list',{classroomId:classroomId,type:type}) }}">{% if type=="nongzi" %}农资{% else %}教程{% endif %}</a>
+                    </li>
+                    {% if catalog %}
+                        {% for c in catalog %}
+                            <li class="{% if catalogId==c.catalogId %}active{% endif%}">
+                                <a class="catalog-tab" href="javascript:void(0);" data-url="{{ path('classroom_nongzi_list',{classroomId:classroomId,type:type,catalogId:c.catalogId}) }}">
+                                    {{ c.catalogName }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <table id="tag-table" class="table table-striped">
+        <thead>
+        <th width="10%">选择</th>
+        <th width="10%">商品ID</th>
+        <th width="25%">商品图片</th>
+        <th width="25%">商品标题</th>
+        <th width="25%">商品价格</th>
+        </thead>
+        <tbody>
+        {% if product %}
+            {% for p in product %}
+                <tr id="product-tr-{{ p.productId }}" data-catalogid="{{ p.catalogId }}">
+                <td><input name="productIds" type="checkbox" value="{{ p.productId }}"/></td>
+                <td>{{ p.productId }}</td>
+                <td><img src="{{ p.img }}" width="45px" height="45px"/></td>
+                <td>{{ p.productTitle }}</td>
+                <td>{% if p.currency=='CNY' %}￥{% endif %}{{ p.offerPrice }}</td>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="20">
+                    <div class="empty">暂无相关商品</div>
+                </td>
+            </tr>
+        {% endif %}
+        </tr>
+        </tbody>
+    </table>
+    {{ web_macro.paginator(paginator) }}
+
+{% endblock %}
+
+{% block footer %}
+    <button id="sure" class="btn btn-primary pull-right"
+            data-url="{{ path('classroom_nongzi_select',{classroomId:classroomId,type:type}) }}">添加
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+
+    <script>app.load('topxiawebbundle/controller/product/pick')</script>
+{% endblock %}

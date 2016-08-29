@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>培训基地</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="培训基地" />
+    <meta name="description" content="培训基地" />
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global-v2.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/course.css') }}"/>
+<body>
+<div class="g-wrap g-pb0">
+    {#<div class="g-h2 f-tac">班级课程</div>#}
+    {#<div class="placeHolder"></div>#}
+    <div class="classes-list last-bor">
+        {% if productBases %}
+            {% for productBase in productBases %}
+                <div class="courseDetail">
+                    <a href="{{ path('product_base_detail',{id:productBase.id}) }}" class="courseList1">
+                        {% if productBase.image.id|default(0) %}
+                        <img src="{{ path('classroom_attachment_download',{fileId:productBase.image.id|default(0)}) }}" width="100" height="80">
+                        {% else %}
+                        <img src="{{ asset('assets/img/default/classroom.png') }}" width="100" height="80">
+                        {% endif %}
+                        <div class="list-right">
+                            <p class="s-course-name overline2">{{ productBase.title }}</p>
+                            <p class="s-course-progress">
+                                <span>{{ productBase.courseCount }}课时</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% include "CustomWebBundle::tongji.html.twig"  %}
+</body>
+</html>

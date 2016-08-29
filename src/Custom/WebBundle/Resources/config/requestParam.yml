@@ -1,0 +1,30 @@
+baiduApi: http://api.map.baidu.com/location/ip
+baiduApiAK: 1339d5296994ef0f1ad73e7db05fa685
+newsApiServiceVesion: 2
+appId: 60001
+secretkey: XXQZyphCN0SX
+#passportServiceVesion: 1
+passportServiceVesion: 1
+askApiServiceVesion: 2
+productApiServiceVesion: 1
+courseApiServiceVesion: 1
+#test
+baseApiUrl: http://172.16.3.7:36008/
+#baseApiUrl: http://172.16.3.11:36008/
+productImgBase: http://test.product.lpmas-admin.net:6060/product
+nongziCatalogId: 243
+jiaochengCatalogId: 242
+productUrl: http://www.lpnjb.com/p
+productBaseUrl: http://ngxiao.lpmas.org/all/productbase
+materialsUrl: http://www.lpnjb.com/list.shtml
+farmInputsUrl: http://www.lpnjb.com/list.shtml
+
+#production
+#baseApiUrl: http://api.lpmas.com/
+#productImgBase: http://www.lpnjb.com/lpnjb/ec/product
+#nongziCatalogId: 245
+#jiaochengCatalogId: 247
+#productUrl: http://www.lpnjb.com/p
+#productBaseUrl: http://ngxiao.lpmas.org/all/productbase
+#materialsUrl: http://www.lpnjb.com/list.shtml
+#farmInputsUrl: http://www.lpnjb.com/list.shtml

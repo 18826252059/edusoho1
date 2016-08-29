@@ -1,0 +1,21 @@
+<tr id="productBase-tr-{{ productBase.id }}">
+    <td>{{ productBase.id }}</td>
+    <td>{{ productBase.title }}</td>
+    <td>{{ productBase.createdTime|date('Y-m-d H:i') }}</td>
+    <td>
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" href="{{ path('admin_product_update', {id:productBase.id})}}" target="_blank">编辑</a>
+
+            <a href="#" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right">
+
+                <li><a class="delete-productBase" id="delete-productBase" href="javascript:"
+                       data-url="{{ path('admin_product_delete', {id:productBase.id}) }}" data-target="{{productBase.id}}" ><span
+                                class="glyphicon glyphicon-hand-right"></span> 删除</a></li>
+
+            </ul>
+        </div>
+    </td>
+</tr>

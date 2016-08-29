@@ -1,0 +1,94 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modalSize = 'large' %}
+
+{% block title %}{% if offlineSchedule%}编辑{% else %}添加{% endif %}线下课程{% endblock %}
+{% block body %}
+
+    <form id="create-form" class="form-horizontal" method="post"
+          action="{% if offlineSchedule%}{{ path('offline_schedule_update',{id:classroom.id,sceduleId:offlineSchedule.id}) }}{% else %}{{ path('offline_schedule_create',{id:classroom.id}) }}{% endif %}">
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label>标题</label>
+            </div>
+            <div class="col-md-7 controls">
+                <input type="text" id="title" name="title" class="form-control" placeholder='标题' value="{{ offlineSchedule.title|default('') }}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label>讲师</label>
+            </div>
+            <div class="col-md-7 controls">
+                <input type="text" id="teacher" name="teacher" class="form-control" placeholder='讲师' value="{{ offlineSchedule.teacher|default('') }}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label>地点</label>
+            </div>
+            <div class="col-md-7 controls">
+                <input type="text" id="address" name="address" class="form-control" placeholder='地点' value="{{ offlineSchedule.address|default('') }}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label>开始时间</label>
+            </div>
+            <div class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                <input class="form-control" size="16" type="text" value="{% if offlineSchedule.startTime|default('') %}{{ offlineSchedule.startTime|date('Y-m-d H:i') }}{% endif %}" readonly  id="startTime" name="startTime">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+            {#<div class="col-md-7 controls" id="startTime-input">#}
+                {##}
+                {#<input type="text" id="startTime" name="startTime" class="form-control"#}
+                       {#data-format="dd/MM/yyyy hh:mm:ss" value="{{ offlineSchedule.startTime|default('') }}">#}
+            {#</div>#}
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label>结束时间</label>
+            </div>
+            <div class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input2">
+                <input class="form-control" size="16" type="text" value="{% if offlineSchedule.endTime|default('') %}{{ offlineSchedule.endTime|date('Y-m-d H:i') }}{% endif %}" readonly  id="endTime" name="endTime">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+            </div>
+            <input type="hidden" id="dtp_input2" value="" /><br/>
+        </div>
+
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+    <button id="create-form-submit" type="button" class="btn btn-primary pull-right"
+            data-toggle="form-submit" data-target="#create-form" data-submiting-text="正在保存...">保存
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/bootstrap-datetimepicker.min.css') }}"/>
+    <script src="{{ asset('themes/h5/js/src/vendor/jquery-2.1.0.min.js') }}"></script>
+    <script src="{{ asset('themes/h5/js/src/vendor/bootstrap-datetimepicker.min.js') }}" charset="UTF-8"></script>
+    <script src="{{ asset('themes/h5/js/src/vendor/bootstrap-datetimepicker.zh-CN.js') }}" charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.form_datetime').datetimepicker({
+            language:  'zh-CN',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            startDate: new Date()
+        });
+    </script>
+    <script>app.load('classroombundle/controller/offline-schedule/manage')</script>
+{% endblock %}
+
+

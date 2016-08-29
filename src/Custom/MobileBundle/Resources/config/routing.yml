@@ -1,0 +1,78 @@
+custom_mobile_api_banner:
+    pattern:  /index/banner
+    defaults: { _controller: CustomMobileBundle:MobileApi:getBanner }
+    methods: [GET]
+
+custom_mobile_api_recommend:
+    pattern:  /index/recommend
+    defaults: { _controller: CustomMobileBundle:MobileApi:recommend }
+    methods: [GET]
+
+custom_mobile_api_category:
+    pattern:  /index/category
+    defaults: { _controller: CustomMobileBundle:MobileApi:category }
+    methods: [GET]
+
+custom_mobile_api_searchCourse:
+    pattern:  /course/searchCourse
+    defaults: { _controller: CustomMobileBundle:Course:searchCourse }
+    methods: [GET]
+
+custom_mobile_api_getClassRooms:
+    pattern:  /classroom/getClassRooms
+    defaults: { _controller: CustomMobileBundle:ClassRoom:getClassRooms }
+    methods: [GET]
+
+custom_mobile_api_getMyClassRooms:
+    pattern:  /classroom/MyClassRooms
+    defaults: { _controller: CustomMobileBundle:ClassRoom:getMyClassRooms }
+    methods: [GET]
+
+custom_mobile_api_courseQuestion:
+    pattern:  /course/question
+    defaults: { _controller: CustomMobileBundle:CourseQuestion:addQuestion }
+    methods: [GET]
+
+custom_mobile_api_addcourseQuestion:
+    pattern:  /course/addquestion
+    defaults: { _controller: CustomMobileBundle:ClassRoom:getMyClassRooms }
+    methods: [GET]
+
+custom_userinfo:
+    pattern:  /userinfo
+    defaults: { _controller: CustomMobileBundle:User:userinfo }
+    methods: [GET]
+
+custom_live:
+    pattern:  /live
+    defaults: { _controller: CustomMobileBundle:Live:index }
+    methods: [POST]
+
+custom_live_recording:
+    pattern:  /live/recording
+    defaults: { _controller: CustomMobileBundle:Live:recording }
+    methods: [POST]
+
+custom_category_relation:
+    pattern:  /category/relation
+    defaults: { _controller: CustomMobileBundle:CategoryRelation:index }
+    methods: [GET]
+
+custom_classroom_create:
+    pattern:  /classroom/create
+    defaults: { _controller: CustomMobileBundle:ClassRoomManager:createClassRoom }
+    methods: [POST]
+
+custom_classroom_member_add:
+    pattern:  /classroom/member/add
+    defaults: { _controller: CustomMobileBundle:ClassRoomManager:classRoomMemberAdd }
+    methods: [POST]
+
+custom_live_classroom_status:
+    pattern:  /live/classroom/status
+    defaults: { _controller: CustomMobileBundle:Live:classroomLiveStatus }
+    methods: [GET]
+custom_live_thirdclassroom_status:
+    pattern:  /live/thirdclassroom/status
+    defaults: { _controller: CustomMobileBundle:Live:thirdClassroomLiveStatus }
+    methods: [GET]

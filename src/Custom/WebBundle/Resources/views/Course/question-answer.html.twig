@@ -1,0 +1,15 @@
+{% if answer %}
+    {% for a in answer %}
+<div class="head-img">
+    <img src="{{ a.avatarUrl|default(asset('themes/h5/images/update/170x170.jpg')) }}" onerror="javascript:this.src='{{ asset('themes/h5/images/update/170x170.jpg') }}';"/>
+</div>
+<span class="num"><sub>{{ answerCount }}</sub></span>
+<div class="info-box">
+    <p> {{ a.nickName|default('') }}</p>
+
+    <div class="info-content">
+        {{ a.answerContent }}
+    </div>
+</div>
+    {% endfor %}
+{% endif %}

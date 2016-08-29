@@ -1,0 +1,31 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modalSize = 'large' %}
+
+
+
+{% block title %}设置用户角色{% endblock %}
+{% block body %}
+    <form id="user-roles-form" class="form-horizontal" method="post" action="{{  url('admin_user_exeternal_roles', {id:user.id}) }}">
+        <div class="checkboxs">
+              <select class="form-control" name="roleId">
+                  {% if user.externalRoleId is empty %}
+                      <option>--请选择--</option>
+                  {% endif %}
+                  {% for role in roles %}
+                  {% if user.externalRoleId == role.role_id%}
+                    <option value="{{ role.role_id }}" selected>{{ role.role_name }}</option>
+                  {% else %}
+                      <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                  {% endif %}
+                  {%  endfor %}
+              </select>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+    </form>
+{% endblock %}
+
+{% block footer %}
+    <button id="change-user-roles-btn" data-submiting-text="正在提交" class="btn btn-primary pull-right" data-toggle="form-submit" data-target="#user-roles-form"  data-user="{{default.user_name|default('学员')}}" >保存</button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+{% endblock %}

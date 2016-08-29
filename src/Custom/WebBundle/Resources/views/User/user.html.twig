@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>专家信息</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="专家信息" />
+    <meta name="description" content="专家信息" />
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global-v2.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/course.css') }}"/>
+</head>
+<body>
+<div class="g-wrap g-pb0">
+    {#<div class="g-h2 f-tac"><a href="javascript:;" class="back-a"><i class="back-point"></i></a>专家信息</div>#}
+    {#<div class="placeHolder"></div>#}
+    <div class="expertDes">
+        <div class="expertDes-header">
+            <p class="expert-course">课程 <span>{{ coursesCount }} </span></p>
+            <img src="{{ filepath(user.mediumAvatar, 'avatar.png')}}" width="80" height="80" style="border-radius: 100%;-webkit-border-radius: 100%">
+            <p class="expert-ask">问答 <span>554</span></p>
+        </div>
+        <p class="expert-name">{{ user.nickname }}</p>
+        <p class="expert-des">{{ user.title }}</p>
+    </div>
+    <div>
+        <div class="left-h2">专家简介</div>
+        <section class="g-mb10 bg-df9">
+            <article class="g-font-color course-detailContent">
+                {{ user.about }}
+            </article>
+        </section>
+        <div class="left-h2 g-mt10 g-mb10 unshow-h2">专家回答
+            <span class="course-rightPoint g-fr c-666">435人</span>
+        </div>
+        {% if courses|default('') %}
+        <a href="{{ path('course_list') }}"><div class="left-h2">专家课程<span class="course-rightPoint g-fr">更多教程</span></div></a>
+
+        <section class="bg-df9 g-mb10 last-bor">
+            {% for course in courses %}
+                <div class="courseDetail">
+                    <a href="{{ path('course_detail',{id:course.id}) }}" class="courseList1" data-id="{{ course.id }}">
+                        <img src="{{ filepath(course.middlePicture, 'course.png') }}" width="100" height="80">
+                        <div class="list-right">
+                            <p class="s-course-name overline2">{{ course.title }}</p>
+                            <p class="s-course-progress">
+                                <span>更新  {{ course.lessonNum }}/{{ course.lessonNum }}</span>
+                                <span class="g-fr">共{{ course.studentNum }}人</span></p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+        {% block classroom_content %}
+            {{ render(controller('CustomWebBundle:User:teaching', {id:user.id})) }}
+        {% endblock %}
+
+    </div>
+</div>
+{% include "CustomWebBundle::tongji.html.twig"  %}
+</body>
+</html>

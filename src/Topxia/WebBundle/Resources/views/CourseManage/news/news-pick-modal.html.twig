@@ -1,0 +1,68 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modal_class= "modal-lg" %}
+
+{% block title %}选择资讯{% endblock %}
+{% block body %}
+    <style>
+        .course-item:hover {
+            cursor: pointer;
+        }
+
+        .course-wide-list .course-item .select {
+
+        }
+    </style>
+
+
+    <form class="form-inline form-search" role="search-form">
+        <div class="form-group ">
+            <input type="text" class="form-control" name="key" id="enterSearch" value="" placeholder="文章标题" data-url="">
+        </div>
+        <button type="button" class="btn btn-primary" id="search"
+                data-url="{{ path('admin_news_list',{courseId:courseId}) }}">搜索
+        </button>
+        <a class="btn btn-primary" id="all-courses"
+           data-url="{{ path('admin_news_list',{courseId:courseId}) }}">全部资讯</a>
+    </form>
+
+    <table id="tag-table" class="table table-striped">
+        <thead>
+        <th width="10%">选择</th>
+        <th width="10%">文章ID</th>
+        <th width="25%">文章标题</th>
+        <th width="25%">文章来源</th>
+        <th width="20%">文章发布时间</th>
+        </thead>
+        <tbody>
+        {% if news %}
+            {% for new in news %}
+                <tr id="new-tr-{{ new.articleId }}" data-url="{{ new.originalUrl }}" data-img="{{ new.pictureList|json_encode() }}" data-articletype="{{ new.articleType }}">
+                <td><input name="newsIds" type="checkbox" value="{{ new.articleId }}"/></td>
+                <td>{{ new.articleId }}</td>
+                <td><a href="{{ new.originalUrl }}" target="_blank">{{ new.articleTitle }}</a></td>
+                <td>{{ new.sourceName }}</td>
+                <td>{{ new.pubDate }}</td>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="20">
+                    <div class="empty">暂无相关资讯</div>
+                </td>
+            </tr>
+        {% endif %}
+        </tr>
+        </tbody>
+    </table>
+    {{ web_macro.paginator(paginator) }}
+
+{% endblock %}
+
+{% block footer %}
+    <button id="sure" class="btn btn-primary pull-right"
+            data-url="{{ path('admin_news_select',{courseId:courseId}) }}">添加
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+
+    <script>app.load('topxiawebbundle/controller/news/pick')</script>
+{% endblock %}

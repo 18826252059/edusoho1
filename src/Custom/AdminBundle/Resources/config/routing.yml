@@ -1,0 +1,55 @@
+custom_admin_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: CustomAdminBundle:Default:index }
+#相关农资
+classroom_manage_nongzi:
+    pattern:  /classroom/manage/{id}/nongzi/{type}
+    defaults: { _controller: CustomAdminBundle:ClassRoomNongziManage:index }
+
+classroom_nongzi_list:
+    pattern: /classroom/{classroomId}/nongzi/lists/{type}
+    defaults: { _controller: CustomAdminBundle:ClassRoomNongziManage:lists}
+
+classroom_nongzi_select:
+    pattern: /classroom/{classroomId}/nongzi/select/{type}
+    defaults: { _controller: CustomAdminBundle:ClassRoomNongziManage:productSelect}
+
+category_manage:
+    pattern: /category/{id}/{type}
+    defaults: { _controller: CustomAdminBundle:CategoryManage:news}
+
+news_category_list:
+    pattern: /category/{id}/{type}/categories
+    defaults: { _controller: CustomAdminBundle:CategoryManage:newsCategories}
+
+news_category_select:
+    pattern: /category/{id}/{type}/select
+    defaults: { _controller: CustomAdminBundle:CategoryManage:newsSelect}
+
+news_category_delete:
+    pattern: /newscategory/{id}/delete
+    defaults: { _controller: CustomAdminBundle:CategoryManage:delete}
+
+nongzi_category_select:
+    pattern: /category/{id}/{type}/nongziselect
+    defaults: { _controller: CustomAdminBundle:CategoryManage:nongziCategory}
+
+announcement_manage:
+    pattern: /classroom/{id}/announcement/manage
+    defaults: { _controller: CustomAdminBundle:AnnouncementManage:index}
+
+classroom_announcement_create:
+    pattern: /classroom/{id}/announcement/create
+    defaults: { _controller: CustomAdminBundle:AnnouncementManage:create}
+
+classroom_announcement_update:
+    pattern: /classroom/{id}/announcement/update
+    defaults: { _controller: CustomAdminBundle:AnnouncementManage:update}
+
+classroom_announcement_delete:
+    pattern: /classroom/{id}/announcement/delete
+    defaults: { _controller: CustomAdminBundle:AnnouncementManage:delete}
+
+admin_user_exeternal_roles:
+    pattern:  /user/{id}/externalrole
+    defaults: { _controller: CustomAdminBundle:ExternalRole:setUserRole }

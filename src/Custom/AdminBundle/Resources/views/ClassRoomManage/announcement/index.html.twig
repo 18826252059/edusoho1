@@ -1,0 +1,62 @@
+{% extends 'ClassroomBundle:ClassroomManage:layout.html.twig' %}
+
+{% block title %}{{ setting('classroom.name')|default("班级") }}管理 - {{ parent() }}{% endblock %}
+
+{% set side_nav = 'announcement' %}
+{% set script_controller = 'customadminbundle/controller/classroom-manage/announcement/manage' %}
+
+{% block main %}
+    {% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+    {{ web_macro.flash_messages() }}
+    <div class="panel panel-default panel-col">
+        <div class="panel-heading">
+            公告管理
+            <button class="btn btn-info btn-sm pull-right mhs" id="student-add-btn" data-toggle="modal" data-target="#modal" data-url="{{ path('classroom_announcement_create',{id:classroom.id}) }}"><i class="glyphicon glyphicon-plus"></i> 添加公告</button>
+        </div>
+
+        <div class="panel-body">
+            <table id="classroom-announcement-table" class="table table-striped">
+                <thead>
+                <th width="5%">ID</th>
+                <th width="20%">标题</th>
+                <th width="10%">内容</th>
+                <th width="10%">添加时间</th>
+                <th width="15%">操作</th>
+                </thead>
+                <tbody>
+                {% if classroomAnnouncements %}
+                    {% for classroomAnnouncement in classroomAnnouncements %}
+                        <tr id="classroom-announcement-tr-{{ classroomAnnouncement.id }}">
+                            <td>{{ classroomAnnouncement.id }}</td>
+                            <td>{{ classroomAnnouncement.title }}</td>
+                            <td>{{ classroomAnnouncement.content }}</td>
+                            <td>{{ classroomAnnouncement.createTime|date('Y-m-d H:i') }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-default btn-sm"  data-toggle="modal" data-target="#modal" data-url="{{ path('classroom_announcement_update',{id:classroom.id,anId:classroomAnnouncement.id}) }}">编辑</button>
+                                    <a href="#" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a class="delete-classroom-announcement" id="delete"  href="javascript:"
+                                               data-url="{{ path('classroom_announcement_delete', {id:classroomAnnouncement.id}) }}" data-target="{{classroomAnnouncement.id}}" ><span
+                                                        class="glyphicon glyphicon-hand-right"></span> 删除</a></li>
+
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="20"><div class="empty">暂无公告</div></td></tr>
+                {% endif %}
+
+                </tbody>
+            </table>
+
+            {{ web_macro.paginator(paginator) }}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>课程详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="课程详情"/>
+    <meta name="description" content="课程详情"/>
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon" media="screen"/>
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">#}
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/willesPlay.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/global-v2.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/swiper/swiper.min.css') }}"/>
+    <link rel="stylesheet" media="screen" href="{{ asset('themes/h5/style/css/course.css') }}"/>
+    <style>
+        .course-list .swiper-slide{margin-top: 0;padding-bottom: 50px;}
+        .course-list{margin-top: 50px;}
+        .course-list .course-dots{position: relative;top:0;}
+        .swiper-container{z-index: 9998;}
+        .swiper-container .swiper-slide .box-contain{background: #eee;}
+        .place-box{height: 200px;width: 100%;}
+        /*add*/
+        .g-video .video-play{    background-position: 0 -62px;}
+        .canvas-img{position: absolute;width: 100%;max-height: 200px;display: block;}
+    </style>
+</head>
+<body>
+<div class="g-wrap g-pb0">
+    <div class="g-h2 f-tac">
+        <a href="{{ path('homepage') }}" class="back-a"><i class="back-point"></i></a>课程详情
+        <span class="header-icon collert-icon {% if hasFavorited %}hascollect{% else %}nocollect{% endif %}"></span>
+        {#<span class="header-icon download-icon"></span>#}
+    </div>
+    {% set video=1 %}
+    {% for lesson in lessons %}
+        {% if lesson.type|default('')=='video' and video==1 %}
+            <div id="willesPlay" class="g-video">
+                <div class="playContent">
+                    <img src="{{ filepath(course.middlePicture, 'course.png') }}" class="canvas-img">
+                    <video width="100%" height="100%" id="playVideo" class="video-content">
+                        <source src="{{ lesson.mediaUri }}">
+                        当前浏览器不支持 video直接播放
+                    </video>
+                    <div class="playTip glyphicon glyphicon-play"></div>
+                </div>
+                <div class="playControll video-control">
+                    <div class="playPause playIcon video-play"></div>
+                    <div class="timebar">
+                        <span class="currentTime start-time">0:00:00</span>
+
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped video-progress"
+                                 role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <div class="video-point"></div>
+                            </div>
+                        </div>
+                        <span class="duration total-time">{{ lesson.length|duration }}</span>
+                    </div>
+                    <div class="otherControl">
+                        <span class="fullScreen glyphicon glyphicon-fullscreen video-fullscreen"></span>
+                    </div>
+                </div>
+            </div>
+            {% set video=video+1 %}
+        {% endif %}
+        {% if lesson.type|default('') == 'live' and video == 1 %}
+            <div id="willesPlay" class="g-video">
+                <div class="playContent">
+                    <img src="{{ filepath(course.middlePicture, 'course.png') }}" class="canvas-img">
+                    <p class="countdown-tip" style="display: none">直播倒计时14:21</p>
+                    <p class="goback-tip" style="display: none">直播已结束</p>
+                    <video width="100%" height="100%" id="playVideo" class="video-content">
+                        <source src="">
+                        当前浏览器不支持 video直接播放
+                    </video>
+                    <div class="playTip glyphicon glyphicon-play"></div>
+                </div>
+                <div class="playControll video-control">
+                    <div class="playPause playIcon video-play"></div>
+                    <div class="timebar">
+                        <span class="currentTime start-time">0:00:00</span>
+
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped video-progress"
+                                 role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <div class="video-point"></div>
+                            </div>
+                        </div>
+                        <span class="duration total-time">{{ lesson.length|duration }}</span>
+                    </div>
+                    <div class="otherControl">
+                        <span class="fullScreen glyphicon glyphicon-fullscreen video-fullscreen"></span>
+                    </div>
+                </div>
+            </div>
+            {% set video=video+1 %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="swiper-container course-list">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="place-box"></div>
+                <div class="box-contain">
+                <div class="swiper-pagination course-dots"></div>
+                <div class="course-msg g-mb10">
+                    <h3>{{ course.title }}</h3>
+                    <span>{{ course.lessonNum }}课时 共{{ course.studentNum }}人学习</span>
+                </div>
+                <div class="left-h2">课程简介</div>
+                <section class="g-mb10 bg-df9">
+                    <article class="g-font-color course-detailContent">
+                        {{ course.about|raw }}
+                    </article>
+                </section>
+                <a href="{{ path('course_comment',{courseId:course.id}) }}">
+                    <div class="left-h2 g-mt10">课程评论<span
+                                class="course-rightPoint g-fr c-666">{% if commentCount %}{{ commentCount }}条评论{% else %}查看评论{% endif %}</span>
+                    </div>
+                </a>
+                <div class="course-item">
+                    {% for review in reviews if reviewsUsers[review.userId]|default(false)  %}
+                        {% set user = reviewsUsers[review.userId] %}
+                        <div class="comment-box">
+                            <div class="head-img">
+                                <img src="{{ filepath(user.smallAvatar, 'avatar.png') }}">
+                            </div>
+                            <div class="info-box">
+                                <p>{{ user.nickname }}<span
+                                            class="g-fr">{{ review.createdTime|date('Y-m-d H:i:s') }}</span></p>
+
+                                <div class="info-content">
+                                    {{ review.content }}            </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                {% for teacher in teachers %}
+                    {% if loop.index<2 %}
+                        <div class="left-h2 g-mt10">导师介绍</div>
+                        <div class="course-item g-mb10">
+                            <div class="teacher-info">
+                                <div class="t-img">
+                                    <img src="{{ filepath(teacher.mediumAvatar, 'avatar.png') }}">
+                                </div>
+                                <h4 class="t-name">{{ teacher.nickname }}</h4>
+
+                                <p class="t-title">{{ teacher.title }}</p>
+
+                                <div class="t-content">
+                                    <span>{{ teacher.about|raw }}</span>
+                                </div>
+                                <div class="t-more"><a href="{{ path('expert_detail',{id:teacher.id}) }}">更多内容</a></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {{ render(controller('CustomWebBundle:CourseDetail:recommendTeachers')) }}
+                <div class="left-h2 g-mt10 g-mb10 unshow-h2" onclick="tipAlert()" style="display:none;">随堂练习<span
+                            class="course-rightPoint c-666 g-fr"></span></div>
+                {#<a href="{{ path('custom_mobile_api_addcourseQuestion',{id:course.id}) }}"><div class="left-h2 g-mt10 g-mb10 unshow-h2" >我要提问<span class="course-rightPoint c-666 g-fr"></span></div></a>#}
+
+                {% if jiaocheng.materials|default('') %}
+                    <a href="{{ jiaocheng.url }}">
+                        <div class="left-h2">精选教材 <span
+                                    class="course-rightPoint g-fr">更多教材</span>
+                        </div>
+                    </a>
+                    <section class="bg-df9 g-mb10 last-bor">
+                        {% for product in  jiaocheng.materials %}
+                            <div class="courseDetail">
+                                <a href="{{ product.url }}" class="courseList1">
+                                    <img src="{{ product.thumbUrl }}" width="55" height="80" style="margin-left:30px;">
+
+                                    <div class="list-right es-book">
+                                        <p class="s-course-name overline1">{{ product.productTitle }}</p>
+                                        {#<p class="s-course-progress">#}
+                                        {#<span>作家:陈明斌</span>#}
+                                        {#</p>#}
+                                        {% if product.offerPrice %}
+                                            <p class="g-font-color4">{% if product.currency=='CNY' %}￥{% endif %}{{ product.offerPrice }}</p>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </section>
+                {% endif %}
+
+                {{ render(controller('CustomWebBundle:Course:news',{courseId:course.id})) }}
+                {#{% include 'CustomWebBundle:Course:course-news.html.twig' %}#}
+                {% include 'CustomWebBundle:Course:nongzi.html.twig' %}
+                {% if  productBaseCount|default(0) %}
+                    <a href="{{ path('all_product_base',{courseId:course.id}) }}">
+                        <div class="left-h2 g-mt10 g-mb10 unshow-h2">{{ productBaseCount }}
+                            个培训基地<span class="course-rightPoint c-666 g-fr"></span></div>
+                    </a>
+                {% endif %}
+                {{ render(controller('CustomWebBundle:CourseDetail:students',{courseId:course.id})) }}
+                {{ render(controller('CustomWebBundle:Course:recommendCourses')) }}
+                </div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="place-box"></div>
+                <div class="box-contain">
+                <div class="swiper-pagination course-dots"></div>
+                {{ render(controller('CustomWebBundle:Course:question',{courseId:course.id})) }}
+                <a href="lpmas://yunketang/ask/{{ course.id }}">
+                    <div class="myask-btn g-mt10">我要提问</div>
+                </a>
+                </div>
+            </div>
+     {% set currentTime = 'now'|date('U') %}
+            <div class="swiper-slide">
+                <div class="place-box"></div>
+                <div class="box-contain">
+                <div class="swiper-pagination course-dots"></div>
+                {% set index=1 %}
+                {% for lesson in lessons %}
+                    {% if lesson.type|default('')=='chapter' %}
+                        <div class="g-h3 head-line g-mt10">
+                            <span>{{ lesson.title }}</span>
+                        </div>
+                        <div class="course-item">
+                            <ul class="g-list">
+                                {% set num=1 %}
+                                {% for tmplesson in lessons %}
+                                    {% if tmplesson.chapterId|default('')==lesson.id and tmplesson.type|default('') in ['video','live']  and tmplesson.status|default('')=='published' %}
+                                        {% if tmplesson.type == 'video' %}
+                                        <li onclick="videoPlay({{ course.id }},{{ tmplesson.id }})">
+                                        {% else %}
+                                        <li  data-live-start-time="{{ lesson.startTime }}"
+                                            data-live-end-time="{{ lesson.endTime }}" data-course-id="{{ course.id }}" data-lesson-id="{{ tmplesson.id }}"
+                                            data-live-title="{{ course.title }}"
+                                            {% if isTeacher %} data-url="lpmas://xiangnongyun/courseid/900{{ course.id }}{{ tmplesson.id }}/{{ tmplesson.title }}"
+                                                {% else %} data-url="http://hls.lpmas.com/yunketang/900{{ course.id }}{{ tmplesson.id }}/playlist.m3u8" {% endif %}>
+                                        {% endif %}
+                                            <span class="list-num">{{ num }}</span>
+                                            <div class="list-div">
+                                    <span class="list-title"><img src="{{ asset('themes/h5/images/ui-play.png') }}"
+                                                                  class="ui-play">{{ tmplesson.title }}</span>
+                                                <span class="list-time">
+                                                    {% if tmplesson.type|default('') == 'video' %}
+                                                    {{ tmplesson.length|duration }}
+                                                    {% else %}
+                                                       {% if tmplesson.startTime > currentTime %}
+                                                           直播未开始
+                                                       {% elseif tmplesson.startTime <= currentTime and tmplesson.endTime >= currentTime %}
+                                                           直播中
+                                                       {% elseif tmplesson.endTime < currentTime %}
+                                                           直播已结束
+                                                       {% endif %}
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        {% set num=num+1 %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% elseif lesson.type in ['video','live'] and lesson.chapterId=='0' %}
+                        <div class="course-item" data-time="{{ currentTime }}">
+                            <ul class="g-list">
+                                {% if lesson.type == 'video' %}
+                                <li onclick="videoPlay({{ course.id }},{{ lesson.id }})">
+                                    {% else %}
+                                <li  data-live-start-time="{{ lesson.startTime }}"
+                                     data-live-end-time="{{ lesson.endTime }}" data-course-id="{{ course.id }}" data-lesson-id="{{ lesson.id }}"
+                                        {% if isTeacher %} data-url="lpmas://xiangnongyun/courseid/900{{ course.id }}{{ lesson.id }}/{{ lesson.title }}"
+                                        {% else %} data-url="http://hls.lpmas.com/yunketang/900{{ course.id }}{{ lesson.id }}/playlist.m3u8" {% endif %}>
+                                    {% endif %}
+                                    <span class="list-num">{{ index }}</span>
+
+                                    <div class="list-div">
+                            <span class="list-title"><img src="{{ asset('themes/h5/images/ui-play.png') }}"
+                                                          class="ui-play">{{ lesson.title }}</span>
+                                        <span class="list-time">
+                                            {% if lesson.type|default('') == 'video' %}
+                                                {{ lesson.length|duration }}
+                                            {% else %}
+                                                {% if lesson.startTime > currentTime %}
+                                                    直播未开始
+                                                {% elseif lesson.startTime <= currentTime and lesson.endTime >= currentTime %}
+                                                    直播中
+                                                {% elseif lesson.endTime < currentTime %}
+                                                    直播已结束
+                                                {% endif %}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {% set index=index+1 %}
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% if (course.type == 'live') %}
+<div class="bottom-tip">
+    {% if isTeacher  %}
+            {% if lessons[0] %}
+    <div class="video-btn go-back">开启直播</div>
+            {% else %}
+    <div class="video-btn go-back">直播课时未设置</div>
+            {% endif %}
+    {% else %}
+    <div class="video-btn no-start"><a href="#" style="color: inherit;">直播未开始</a></div>
+    {% endif %}
+</div>
+{% endif %}
+<!-- <div class="bottom-tip">
+     <div class="video-btn no-start">正在直播</div>
+ </div>
+ <div class="bottom-tip">
+     <div class="video-btn go-back">查看回放</div>
+ </div>-->
+<div class="tipBox">
+    <div class="tipDiv">
+        <i class="i-cancel" onclick="hideBox()"></i>
+        <p>开发中</p></div>
+</div>
+<script src="{{ asset('themes/h5/js/src/vendor/jquery-2.1.0.min.js') }}"></script>
+<script src="{{ asset('themes/h5/js/src/vendor/swiper.min.js') }}"></script>
+<script src="{{ asset('themes/h5/js/src/vendor/swiper-setting.js') }}"></script>
+{% if 0 == isTeacher  %}
+<script src="{{ asset('themes/h5/js/src/vendor/willesPlay.js') }}"></script>
+{% endif %}
+<script>
+
+    {% if course.type == 'live' %}
+    var iID = null;
+    var waitingStatus = false;
+    var isTeacher = {{ isTeacher }}
+    var CurrentDate =  {{ currentTime }} ;
+    nowTimer = CurrentDate;
+    $current_click_live_li = null;
+    $('.timebar .duration').hide();
+    $('.g-list').on('click','li',function(){
+           waitingStatus = false;
+          if ($current_click_live_li != null && $current_click_live_li.get(0) != this) {
+              {% if ( 0 == isTeacher) %}
+              $('#playVideo').get(0).pause();
+              $('#playVideo').removeAttr('src');
+//              $('.playTip').removeClass('glyphicon-pause').addClass('glyphicon-play').fadeIn();
+//              if (!$('.playPause').hasClass('playIcon')) {
+//                  $('.playPause').addClass('playIcon');
+//              }
+              $('#playVideo').off('waiting');
+              $('#playVideo').off('playing');
+              {% endif %}
+          }
+
+         if ($(this).data('live-end-time') < nowTimer ){
+             $('.video-control').hide();
+             $('.playTip').hide();
+             $('.canvas-img').show();
+         }
+           $current_click_live_li = $(this);
+           $('.goback-tip').hide();
+
+          var courseId = $(this).data('course-id');
+          var lessonId = $(this).data('lesson-id');
+          var startTime = $(this).data('live-start-time');
+          var endTime = $(this).data('live-end-time');
+          CurrentDate = nowTimer;
+           {% if 0 == isTeacher %}
+
+           $(".bottom-tip .video-btn a").on('click',function(event){
+               event.preventDefault();
+           });
+          $('.playContent').off('click');
+           {% endif %}
+
+
+           if (iID) {
+               clearInterval(iID);
+           }
+
+           var intervalSecond = 0;
+
+           function generateHtml() {
+               var nowDate = CurrentDate + intervalSecond;
+               var startLeftSeconds = parseInt(startTime - nowDate);
+               var endLeftSeconds = parseInt(endTime - nowDate);
+               var days = Math.floor(startLeftSeconds / (60 * 60 * 24));
+               var modulo = startLeftSeconds % (60 * 60 * 24);
+               var hours = Math.floor(modulo / (60 * 60));
+               modulo = modulo % (60 * 60);
+               var minutes = Math.floor(modulo / 60);
+               var seconds = modulo % 60;
+
+
+               if (0 < startLeftSeconds) {
+                   $('.video-control').hide();
+                   $('.playTip').hide();
+                   if (isTeacher) {
+                       $(".go-back").css('background','#E0E0E0');
+                       $(".go-back").text('开启直播');
+                       if (startLeftSeconds < 20) {
+                           if ($(".bottom-tip a").length == 0) {
+                               $(".bottom-tip .video-btn").wrap($('<a href="' + $current_click_live_li.data('url') + '"></a>'));
+                           }
+                           if(0 == startLeftSeconds)
+                           {
+                               $(".bottom-tip a").trigger('click');
+                           }
+                           $(".go-back").css('background','#5DAB2F');
+                       }
+                   }else{
+                       $('.canvas-img').show();
+                       $(".no-start a").text('直播未开始');
+                   }
+                   $('.countdown-tip').show();
+                   $('.countdown-tip').text(showTimeDownWord(days,hours,minutes,seconds));
+
+               };
+
+               if (startLeftSeconds <= 0 && endLeftSeconds > 0) {
+                   $current_click_live_li.find('.list-time').text('正在直播');
+                   $('.countdown-tip').hide();
+                   if (isTeacher) {
+                       $(".go-back").css('background','#5DAB2F');
+                       if( $(".bottom-tip > a").length > 0 && '' != $(".bottom-tip > a").attr('href'))
+                       {
+                           $(".go-back").text('开启直播');
+                       }else{
+                           $(".bottom-tip .video-btn").wrap($('<a href="'+$current_click_live_li.data('url')+'"></a>'));
+                       }
+                   } else {
+                       if ('' == $('#playVideo').attr('src') || undefined == $('#playVideo').attr('src')) {
+                           $('.video-control').show();
+                           $('.playTip').show();
+                           $('#playVideo').attr('src', $current_click_live_li.data('url'));
+                           $('.canvas-img').show();
+                           $('#willesPlay').on('click',function(){
+                               if ($('.playPause').hasClass('playIcon')) {
+                                   $('.canvas-img').show();
+                               }else{
+                                   $('.canvas-img').hide();
+                               }
+                           });
+                           $('.playContent').on('click',function(){
+                               $('.playPause').toggleClass('playIcon');
+                               if ($('video').get(0).paused) {
+                                   $('video').get(0).play();
+                                   $('.playTip').removeClass('glyphicon-play').addClass('glyphicon-pause').fadeOut();
+                               } else {
+                                   $('video').get(0).pause();
+                                   $('.playTip').removeClass('glyphicon-pause').addClass('glyphicon-play').fadeIn();
+                               }
+                           });
+                           $('#playVideo').on('playing',function(){waitingStatus = false});
+                           $('#playVideo').on('waiting',function(){
+                               var course_id = $current_click_live_li.data('course-id');
+                               var lesson_id = $current_click_live_li.data('lesson-id');
+                               checkLiveStatus(course_id,lesson_id);
+                           });
+                           $(".bottom-tip .video-btn").on('click',function(event){
+                               if ($('.playPause').hasClass('playIcon')){
+                                   $('.playPause').trigger('click');
+                               }
+                           });
+                           $(".video-btn").css('background','#5DAB2F');
+                       }
+                       $(".bottom-tip .video-btn a").text('正在直播');
+
+                   }
+               };
+               if (endLeftSeconds <= 0) {
+                   $('.countdown-tip').hide();
+                   clearInterval(iID);
+                   if (isTeacher) {
+                       $(".bottom-tip .video-btn").appendTo($('.bottom-tip'));
+                       $('.bottom-tip a').remove();
+                       $(".go-back").css('background','#E0E0E0');
+                       $(".bottom-tip .video-btn").text('直播已结束');
+                       $('.goback-tip').show();
+                   } else {
+                       $(".video-btn").css('background','#E0E0E0');
+                       //$('.playContent').off('click');
+                       //$('#willesPlay').off('click');
+                       //$('#playVideo').get(0).pause();
+                      // $('#playVideo').attr('src','');
+                       $(".bottom-tip .video-btn a").text('直播已结束');
+                       $(".bottom-tip .video-btn").off('click');
+                        // $('.goback-tip').show();
+                       // $('.video-control').hide();
+                       //$('.playTip').hide();
+                       //$('.canvas-img').show();
+                   }
+                   $current_click_live_li.find('.list-time').text('直播已结束');
+               };
+               intervalSecond++;
+           }
+           function showTimeDownWord(d,h,m,s) {
+               var w = '直播倒计时:';
+               if (d != 0){
+                   w += d + '天';
+               }
+               if (h != 0){
+                   w += h + '时';
+               }
+               if (m != 0){
+                   w += m + '分';
+               }
+               if (s != 0){
+                   w += s + '秒';
+               }
+               return w;
+           }
+        {% if ( 0 == isTeacher) %}
+           function checkLiveStatus(cid,lid){
+               var urlOrgin =  "{{ path('lpmas_live_status_check',{courseId:'courseid',lessonId:'lessonid'})  }}";
+               urlOrgin = urlOrgin.replace('courseid', cid);
+               urlOrgin = urlOrgin.replace('lessonid', lid);
+               $.ajax({
+                   url:urlOrgin,
+                   type: 'GET',
+                   contentType: 'text/json',
+                   success: function (dataJson) {
+                        if (undefined != dataJson && dataJson.code != 0 && !waitingStatus){
+                            $('.tipBox p').text(dataJson.message);
+                            $('.tipBox').fadeIn(2000).fadeOut(1000);
+                            waitingStatus = true
+                        }
+                   },
+                   error:function(){
+                   }
+               })
+           }
+        {% endif %}
+           generateHtml();
+           iID = setInterval(generateHtml, 1000);
+       });
+    $('.video-control').hide();
+    setInterval(function(){nowTimer += 1;}, 1000);
+    $('.playTip').hide();
+    $('.g-list li:first-child').trigger('click');
+    {% else %}
+      $('#willesPlay').on('click',function(){
+            $('.canvas-img').hide();
+    });
+    {% endif %}
+
+    var $img = $('.course-item .detail-info .li-pic .imgbox');
+    var img_w = $img.width();
+    $img.height(img_w * 0.8);
+
+    var url = "{{ path('mapi_mobile_api',{service:'Lesson',method:'getLesson'}) }}",
+            favoriteCourse = "{{ path('mapi_mobile_api',{service:'Course',method:'favoriteCourse'}) }}",
+            unFavoriteCourse = "{{ path('mapi_mobile_api',{service:'Course',method:'unFavoriteCourse'}) }}";
+    //    var playPause = $('.playPause');
+    //    var playVideo = $('video');
+    //    playVideo[0].play();
+    //    var courseList = new Swiper('.course-list',{
+    //        pagination: '.course-dots',
+    //        paginationClickable: true,
+    //        resistanceRatio: 0,
+    //        touchMoveStopPropagation : false,
+    //        paginationBulletRender: function (index, className) {
+    //            switch (index) {
+    //                case 0: name='简介';break;
+    //                case 1: name='问答';break;
+    //                case 2: name='章节';break;
+    //                default: name='';
+    //            }
+    //            return '<span class="' + className + '">' + name + '</span>';
+    //        }
+    //    });
+    var courseNav = $('.course-dots').height();
+    var header = $('.g-h2').height();
+    var video = $('.g-video').height();
+    var swiper = $('.course-list');
+    var swiperSilde = $('.course-list .swiper-slide');
+    swiper.css({
+        'height': $(window).height() - header  + 'px',
+        'overflow': 'hidden'
+    });
+    swiperSilde.css({
+        'height': $(window).height() - header  + 'px'
+    });
+    function videoPlay(courseId, lessonId) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                courseId: courseId,
+                lessonId: lessonId
+            },
+            success: function (json) {
+                if (null == json) {
+                } else {
+                    if (json.error) {
+                        console.log(json.error.message);
+                    } else {
+                        $('.g-video .video-progress').css('width', '0px');
+                        $('.video-content').attr('src', json.mediaUri);
+                        $('.playTip').css('display', 'none');
+                        var playVideo = $('video');
+                        playVideo[0].play();
+                        $('.video-play').removeClass('playIcon');
+                        $('.canvas-img').hide();
+                    }
+                }
+            }
+        })
+    }
+    function hideBox() {
+        $('.tipBox').hide();
+        $('body').css('overflow', 'auto');
+    }
+    function tipAlert() {
+        $('.tipBox').show();
+        $('body').css('overflow', 'hidden');
+    }
+    //点击收藏
+    $('.collert-icon').on('click', function () {
+        if ($(this).hasClass('nocollect')) {  //点击收藏
+            $.ajax({
+                url: favoriteCourse,
+                type: 'POST',
+                dataType: 'jsonp',
+                data: {
+                    courseId: {{ course.id }}
+                },
+                success: function (json) {
+                    if ("undefined" != typeof(json.error) && json.error.name == 'not_login') {
+                        //未登录跳转到登录
+                        window.location.href = "lpmas://yunketang/login";
+                    } else if (json) {
+                        $('.collert-icon').removeClass('nocollect').addClass('hascollect');
+                    }
+                }
+
+            })
+        } else {       //点击取消收藏
+            $.ajax({
+                url: unFavoriteCourse,
+                type: 'POST',
+                dataType: 'jsonp',
+                data: {
+                    courseId: {{ course.id }}
+                },
+                success: function (json) {
+                    if ("undefined" != typeof(json.error) && json.error.name == 'not_login') {
+                        //未登录跳转到登录
+                        window.location.href = "lpmas://yunketang/login";
+                    } else if (json) {
+                        $('.collert-icon').removeClass('hascollect').addClass('nocollect');
+                    }
+                }
+
+            })
+        }
+
+    })
+    $('.place-box').on('click',function(){
+
+            $(this).parents('.swiper-slide').scrollTop(0);
+            $('.g-video').css('z-index','10002');
+        });
+        $('.swiper-slide').on('scroll',function(){
+      if($(this).scrollTop() == 0){
+          $('.g-video').css('z-index','10002');
+      }else{
+          $('.g-video').css('z-index','9997');
+      }
+  });
+  $('.box-contain').on('touchstart',function(){
+      if($(this).parents(".swiper-slide").scrollTop() == 0){
+          $('.g-video').css('z-index','10002');
+      }else{
+          $('.g-video').css('z-index','9997');
+      }
+  });
+  $('.box-contain').on('touchmove',function(){
+      if($(this).parents(".swiper-slide").scrollTop() == 0){
+          $('.g-video').css('z-index','10002');
+      }else{
+          $('.g-video').css('z-index','9997');
+      }
+  });
+</script>
+{% include "CustomWebBundle::tongji.html.twig" %}
+</body>
+</html>

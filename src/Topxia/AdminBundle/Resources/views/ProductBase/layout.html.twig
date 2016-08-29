@@ -1,0 +1,51 @@
+{% extends 'TopxiaWebBundle::layout.html.twig' %}
+{% block title %}基地管理 - {{ parent() }}{% endblock %}
+
+{% block content %}
+<style>
+/*.locked li a{*/
+  /*padding:10px 15px 10px 0px !important;*/
+/*}*/
+.locked li a>span{
+  display:inline-block;
+  width:35px;
+  padding:0px 10px;
+}
+.es-section{
+  padding: 0px;
+}
+
+</style>
+  <div class="es-section course-manage-header clearfix"></div>
+  {% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+<div class="row">
+  <div class="col-md-3">
+    {% block side %}
+      {% set side_nav = side_nav|default(null) %}
+      {% if  productBase.id|default('') %}
+      <div class="sidenav locked">
+        <ul class="list-group">
+          <li class="list-group-heading">基地信息</li>
+          <li class="list-group-item {% if side_nav == 'base' %}active{% endif %}">
+            <a href="{{ path('admin_product_update', {id:productBase.id}) }}">
+              基本信息
+            </a>
+          </li>
+          <li class="list-group-item {% if side_nav == 'picture' %}active{% endif %}">
+            <a href="
+            {{ path('product_manage_file', {id:productBase.id}) }}
+            " >
+              基地图片
+            </a>
+          </li>
+        </ul>
+
+      </div>
+        {% endif %}
+    {% endblock %}
+  </div>
+  <div class="col-md-9">
+    {% block main %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

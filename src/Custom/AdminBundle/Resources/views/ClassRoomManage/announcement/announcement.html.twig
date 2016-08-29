@@ -1,0 +1,55 @@
+{% extends 'TopxiaWebBundle::bootstrap-modal-layout.html.twig' %}
+
+{% set modalSize = 'large' %}
+
+{% block title %}{% if classroomAnnouncement %}编辑{% else %}添加{% endif %}公告{% endblock %}
+{% block body %}
+
+    <form id="create-form" class="form-horizontal" method="post"
+          action="{% if classroomAnnouncement %}{{ path('classroom_announcement_update',{id:classroom.id,anId:classroomAnnouncement.id}) }}{% else %}{{ path('classroom_announcement_create',{id:classroom.id}) }}{% endif %}">
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label for="title">标题</label>
+            </div>
+            <div class="col-md-7 controls">
+                <input type="text" id="title" name="title" class="form-control" placeholder='标题'
+                       value="{{ classroomAnnouncement.title|default('') }}">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 control-label">
+                <label for="content">内容</label>
+            </div>
+            <div class="col-md-7 controls">
+                <textarea rows="10" cols="20" class="form-control" id="content" name="content">{{ classroomAnnouncement.content|default('') }}
+                 </textarea>
+            </div>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('site') }}">
+
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+    <button id="create-form-submit" type="button" class="btn btn-primary pull-right"
+            data-toggle="form-submit" data-target="#create-form" data-submiting-text="正在保存...">保存
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-dismiss="modal">取消</button>
+    <script type="application/javascript">
+//        $(function(){
+//            $("#create-form-submit").on('click', function(){
+//                var textVale = $('#content').val();
+//                var newValue = textVale.replace(/(^\s*)|(\s*$)/g, "");
+//                if (newValue.length < 1) {
+//                    alert('请输入内容');
+//                }
+//            });
+//        })
+    </script>
+    <script>app.load('customadminbundle/controller/classroom-manage/announcement/manage')</script>
+{% endblock %}
+
+
+
+

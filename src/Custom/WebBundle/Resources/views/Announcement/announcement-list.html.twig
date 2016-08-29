@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>班级通知</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="班级通知" />
+    <meta name="description" content="班级通知" />
+    <link rel="icon" href="{{ asset(setting('site.favicon')) }}" type="image/x-icon"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('themes/h5/style/css/global.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('themes/h5/style/css/global-v2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('themes/h5/style/css/course.css') }}">
+</head>
+<body>
+<div class="g-wrap g-pb0">
+    {#<div class="g-h2 f-tac"><a href="javascript:history.back(-1);" class="back-a"><i class="back-point"></i></a>班级通知</div>#}
+    {#<div class="placeHolder"></div>#}
+    {% if announcements is not defined %}
+        <div class="notice-div">
+                <div class="notice-box bg-df9">
+                    <div class="left-h2"></div>
+                    <section class="g-mb10 bg-df9">
+                        <article class="g-font-color course-detailContent">
+                            无公告
+                            <p class="s-course-progress"><span></span></p>
+                        </article>
+                    </section>
+                </div>
+        </div>
+    {% else %}
+    {% for annomnt in announcements %}
+    <div class="notice-div">
+        <a href="{{ path('announcement_detail',{'classroomId':annomnt.classroomId ,'announcementId':annomnt.id })}}">
+        <div class="notice-box bg-df9">
+            <div class="left-h2">{{ annomnt.title | escape }}</div>
+            <section class="g-mb10 bg-df9">
+                <article class="g-font-color course-detailContent">
+                    <p class="overline2">
+                    {{ annomnt.content |escape }}
+                    </p>
+                    <p class="s-course-progress"><span>{{ annomnt.createTime |date('Y-m-d') }}</span></p>
+                </article>
+            </section>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+</body>
+</html>

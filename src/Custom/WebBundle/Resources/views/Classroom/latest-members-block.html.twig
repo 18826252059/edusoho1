@@ -1,0 +1,12 @@
+{% if users %}
+    <div class="left-h2 g-mt10 g-mb10 unshow-h2">培育班成员
+			<span class="classes-member">
+    {% for  user in students %}
+        {% if loop.index < 6%}
+        <img src="{{ filepath(user.mediumAvatar, 'avatar.png') }}" width="25" height="25">
+        {% endif %}
+    {% endfor %}
+			</span>
+        <a href="{{ path('classroom_member',{classroomId:classroom.id,type:'all'}) }}"><span class="course-rightPoint g-fr c-666">{{ classroom.studentNum + classroom.auditorNum }}人</span></a>
+    </div>
+{% endif %}

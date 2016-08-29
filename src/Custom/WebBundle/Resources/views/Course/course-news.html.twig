@@ -1,0 +1,28 @@
+{% if news %}
+    <div class="g-h3 head-line g-mt10">
+        <span>相关资讯</span>
+    </div>
+    <div class="course-item g-mb10">
+        <ul class="c-detail">
+            {% for new in news %}
+                <a href="lpmas://yunketang/news/{{ new.articleId }}/{{ new.articleType }}">
+                    <li>
+                        <div class="detail-item">
+                            <div class="d-title">{{ new.articleTitle }}</div>
+                            <div class="d-date">{{ new.pubDate|date('Y-m-d') }} {{ new.sourceName }}</div>
+                        </div>
+                        <div class="g-img">
+                            {% if new.pictureList %}
+                                {% for img in  new.pictureList %}
+                                    {% if loop.index==1 %}
+                                        <img src="{{ img }}"/>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

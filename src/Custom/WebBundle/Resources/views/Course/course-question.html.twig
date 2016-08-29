@@ -1,0 +1,45 @@
+{% if questions %}
+    {% for question in questions %}
+        <a href="lpmas://yunketang/question/{{ question.questionId }}" style="color: black;">
+            <div class="course-item {% if loop.index>1 %}g-mt10{% endif %}" data-id="{{ question.questionId }}">
+
+                {% if question.contentList %}
+                    {% for content in question.contentList %}
+                        {% if content.mediaList %}
+                            <div class="detail-info">
+                                <div class="li-title">{{ question.questionTitle }}</div>
+                                <ul class="li-pic">
+                                    {% for img in  content.mediaList %}
+                                        <li class="imgbox" style="background: url({{ img }}) no-repeat 50% 50%/cover"></li>
+                                        {#<li class="imgbox"><img src="{{ img }}" alt=""/></li>#}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="question-box">
+                                {{ question.questionTitle }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="question-box">
+                        {{ question.questionTitle }}
+                    </div>
+                {% endif %}
+
+                <div class="comment-box">
+                    {% if question.answerList %}
+                        {% set answerIndex=1 %}
+                        {% for answer in  question.answerList %}
+                            {% if answerIndex==1 %}
+                                {{ render(controller('CustomWebBundle:Course:answer',{answerId:answer,answerCount:question.answerList|length})) }}
+                            {% endif %}
+                            {% set answerIndex=answerIndex+1 %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+        </a>
+    {% endfor %}
+{% endif %}

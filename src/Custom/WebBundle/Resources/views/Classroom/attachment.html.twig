@@ -1,0 +1,17 @@
+{% import "TopxiaWebBundle::macro.html.twig" as web_macro %}
+<div class="left-h2">相关附件</div>
+<section class="bg-df9 g-mb10 last-bor">
+    {% for file in files %}
+    <div class="courseDetail">
+        <a href="{{ path('classroom_attachment_download', {fileId:file.id}) }}" class="courseList1">
+            <img src="{{ asset('themes/h5/images/update/about-video.png') }}" width="100" height="80">
+            <div class="list-right">
+                <p class="s-course-name overline2">{{ file.filename }}</p>
+                <p class="s-course-progress">
+                    <span class="c-main">{{ web_macro.bytesToSize(file.size) }}</span>
+                </p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</section>
